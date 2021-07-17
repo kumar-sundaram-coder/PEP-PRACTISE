@@ -89,7 +89,7 @@ public:
 // n    =   8 -> 1000
 // n-1  =   7-> 0111
 // so, ( 8 & 7) = 0000
-// Now, coming to this particular problem, we know every power of two has the MSB as 1 and rest all as 0 e.g. 2,4,8...... so when we apply n & (n-1) operation if we get output as 0 it means n is a powerr of 2.
+// Now, coming to this particular problem, we know every power of two has the MSB as 1 and rest all as 0 e.g. 2,4,8...... so when we apply n & (n-1) operation if we get output as 0 it means n is a power of 2.
 
 //Leetcode 231. Power of Two
 
