@@ -25,7 +25,7 @@ int noOfSetBits(int num)
 {
     int setBits = 0;
 
-    for (int i = 0; num != 0 && i <= 32; i++) //Total Bits are 32
+    for (int i = 0; num != 0 && i < 32; i++) //Total Bits are 32
     {
         if ((num & 1) != 0)
         {

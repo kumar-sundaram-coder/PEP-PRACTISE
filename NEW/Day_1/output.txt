@@ -1,5 +1,7 @@
-Ide -> 2
-For -> 2
-Geeks -> 4
-12345
-12345
+2
+2
+2
+false
+true
+true
+true
