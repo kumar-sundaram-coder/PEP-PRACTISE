@@ -70,10 +70,10 @@ bool powerOfFour_03(int num)
     {
         return false;
     }
+
     if ((num & (num - 1)) == 0)
     {
         int trailingZeroes = 0;
-        // trailingZeroes = __builtin_ctz(num);
 
         while (num > 1)
         {
@@ -81,12 +81,119 @@ bool powerOfFour_03(int num)
             num = num >> 1;
         }
 
+        // trailingZeroes = __builtin_ctz(num);
         // if (trailingZeroes % 2 == 0)
         if ((trailingZeroes & 1) == 0)
             return true;
     }
     return false;
 }
+
+// 136. Single Number
+
+class Solution
+{
+public:
+    int singleNumber(vector<int> &nums)
+    {
+        int ans = 0;
+        // for(int ele:nums){
+        //     ans=ans^ele;
+        // }
+        // return ans;
+
+        for (int i = 0; i < 32; i++)
+        {
+            int mask = 1 << i;
+            int count = 0;
+            for (int ele : nums)
+            {
+                if ((ele & mask) != 0)
+                {
+                    count++;
+                }
+            }
+            if (count % 2 != 0)
+            {
+                ans = ans | mask;
+            }
+        }
+        return ans;
+    }
+};
+
+//137. Single Number II
+
+class Solution
+{
+public:
+    int singleNumber(vector<int> &nums)
+    {
+        int ans = 0;
+
+        for (int i = 0; i < 32; i++)
+        {
+            int mask = 1 << i;
+            int count = 0;
+            for (int ele : nums)
+            {
+                if ((ele & mask) != 0)
+                {
+                    count++;
+                }
+            }
+            if (count % 3 != 0)
+            {
+                ans = ans | mask;
+            }
+        }
+
+        return ans;
+    }
+};
+
+//260. Single Number III
+
+class Solution
+{
+public:
+    vector<int> singleNumber(vector<int> &nums)
+    {
+        if (nums.size() == 2)
+            return nums;
+
+        int xorNum = 0;
+        for (int ele : nums)
+        {
+            xorNum = xorNum ^ ele;
+        }
+
+        if (xorNum == INT_MIN || xorNum == INT_MAX)
+        {
+            return {0, xorNum};
+        }
+
+        int LSB = (xorNum & (-xorNum)); //it gives the first (or rightmost) set bit
+        // Bitwise AND of x and -x give a binary number with only 1 set Bit i.e., LSB
+
+        int a = 0;
+        int b = 0;
+
+        for (int ele : nums)
+        {
+            //making two seperate groups, one with the set  bit and the other with unset bit at that position(LSB)
+            if ((ele & LSB) != 0)
+            {
+                a = a ^ ele;
+            }
+            else
+            {
+                b = b ^ ele;
+            }
+        }
+        return {a, b};
+    }
+};
 
 void solve()
 {
@@ -100,10 +207,6 @@ void solve()
     cout << boolalpha << powerOfFour_01(num2) << endl;
     cout << boolalpha << powerOfFour_02(num2) << endl;
     cout << boolalpha << powerOfFour_03(num2) << endl;
-
-    
-    
-    
 }
 
 int main()
