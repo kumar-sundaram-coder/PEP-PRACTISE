@@ -100,7 +100,10 @@ void solve()
     cout << boolalpha << powerOfFour_01(num2) << endl;
     cout << boolalpha << powerOfFour_02(num2) << endl;
     cout << boolalpha << powerOfFour_03(num2) << endl;
-    // cout << boolalpha << powerOfFour_04(num2) << endl;
+
+    
+    
+    
 }
 
 int main()
