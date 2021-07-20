@@ -15,13 +15,6 @@ void printIncreasing(int a, int b)
     cout << a << " ";
     printIncreasing(a + 1, b);
 }
-void printDecreasing_1(int a, int b)
-{
-    if (b == a - 1)
-        return;
-    cout << b << " ";
-    printDecreasing_1(a, b - 1);
-}
 
 void printDecreasing_2(int a, int b)
 {
@@ -30,6 +23,13 @@ void printDecreasing_2(int a, int b)
 
     printDecreasing_2(a + 1, b);
     cout << a << " ";
+}
+void printDecreasing_1(int a, int b)
+{
+    if (b == a - 1)
+        return;
+    cout << b << " ";
+    printDecreasing_1(a, b - 1);
 }
 
 void printIncrDecr(int a, int b)
