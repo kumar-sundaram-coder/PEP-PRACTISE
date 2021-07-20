@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <climits>
-
+#include <unordered_set>
 using namespace std;
 
 int noOfSetBits_01(int num)
@@ -192,6 +192,101 @@ public:
             }
         }
         return {a, b};
+    }
+};
+
+// 67. Add Binary
+
+class Solution
+{
+public:
+    string addBinary(string a, string b)
+    {
+        string ans = "";
+        int i = a.size() - 1, j = b.size() - 1, carry = 0;
+
+        while (i >= 0 || j >= 0)
+        {
+            int sum = carry;
+            if (i >= 0)
+            {
+                sum += a[i--] - '0';
+            }
+
+            if (j >= 0)
+            {
+                sum += b[j--] - '0';
+            }
+
+            // ans.insert(0, to_string(sum % 2));
+            ans += to_string(sum % 2);
+            carry = sum / 2;
+        }
+        if (carry)
+        {
+            ans += to_string(1);
+            // ans.insert(0, to_string(1));
+        }
+
+        return ans;
+    }
+};
+
+// 287. Find the Duplicate Number
+
+class Solution
+{
+public:
+    int findDuplicate(vector<int> &nums)
+    {
+        unordered_set<int> uoset;
+        for (int ele : nums)
+        {
+            if (uoset.find(ele) == uoset.end())
+            {
+                uoset.insert(ele);
+            }
+            else
+            {
+                return ele;
+            }
+        }
+        return 0;
+    }
+};
+
+// 268. Missing Number
+
+class Solution
+{
+public:
+    int missingNumber(vector<int> &nums)
+    {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            ans = (ans ^ nums[i]) ^ (i + 1);
+        }
+        return ans;
+    }
+};
+
+//190. Reverse Bits
+
+class Solution
+{
+public:
+    uint32_t reverseBits(uint32_t n)
+    {
+        uint32_t ans = 0, i = 31;
+        while (n != 0)
+        {
+            // ans += ((n & 1) << i);
+            ans = ans | ((n & 1) << i);
+            n = n >> 1;
+            i--;
+        }
+        return ans;
     }
 };
 
