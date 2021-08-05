@@ -290,6 +290,77 @@ public:
     }
 };
 
+// 762. Prime Number of Set Bits in Binary Representation
+class Solution
+{
+public:
+    unordered_set<int> set = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31};
+    int countPrimeSetBits(int l, int r)
+    {
+        int ans = 0;
+        while (l <= r)
+        {
+            // int count=__builtin_popcount(l);
+            int count = 0;
+            int i = 0, num = l;
+
+            while (num != 0 && i < 32)
+            {
+                if ((num & 1) != 0)
+                    count++;
+                num >>= 1;
+                i++;
+            }
+
+            if (set.find(count) != set.end())
+            {
+                ans++;
+            }
+            l++;
+        }
+        return ans;
+    }
+};
+
+//204. Count Primes
+class Solution
+{
+public:
+    int countPrimes(int n)
+    {
+        if (n <= 2)
+            return 0;
+        vector<bool> isPrime(n + 1, true);
+
+        //marking false for both 0 and 1 cz they are neither prime nor composite
+        isPrime[0] = false;
+        isPrime[1] = false;
+
+        //marking false for the number itself because we only need to count the number of prime numbers less n (not eqaul to n/ excluding n).
+        isPrime[n] = false;
+
+        for (int p = 2; p * p <= n; p++)
+        {
+            if (isPrime[p] == true)
+            {
+                for (int i = p * p; i <= n; i += p)
+                {
+                    isPrime[i] = false;
+                }
+            }
+        }
+        int ans = 0;
+        for (auto ele : isPrime)
+        {
+            if (ele)
+            {
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
+
 void solve()
 {
     int num = 6;
