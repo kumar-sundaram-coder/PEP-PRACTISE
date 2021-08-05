@@ -196,7 +196,7 @@ public:
 };
 
 // 67. Add Binary
-
+//Method 1 (reversing array before returning)
 class Solution
 {
 public:
@@ -227,11 +227,38 @@ public:
             ans += to_string(1);
             // ans.insert(0, to_string(1));
         }
+        reverse(ans.begin(), ans.end());
 
         return ans;
     }
 };
-
+//method 2: without reversing
+class Solution
+{
+public:
+    string addBinary(string a, string b)
+    {
+        int i = a.size() - 1, j = b.size() - 1, carry = 0;
+        string ans = "";
+        while (i >= 0 || j >= 0)
+        {
+            int sum = carry;
+            if (i >= 0)
+            {
+                sum += a[i--] - '0';
+            }
+            if (j >= 0)
+            {
+                sum += b[j--] - '0';
+            }
+            ans = to_string(sum % 2) + ans;
+            carry = sum / 2;
+        }
+        if (carry)
+            ans = to_string(1) + ans;
+        return ans;
+    }
+};
 // 287. Find the Duplicate Number
 
 class Solution
@@ -336,7 +363,7 @@ public:
         isPrime[0] = false;
         isPrime[1] = false;
 
-        //marking false for the number itself because we only need to count the number of prime numbers less n (not eqaul to n/ excluding n).
+        //marking false for the number itself because we only need to count the number of prime numbers less n.
         isPrime[n] = false;
 
         for (int p = 2; p * p <= n; p++)
