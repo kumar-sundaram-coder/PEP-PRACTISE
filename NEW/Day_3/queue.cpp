@@ -37,6 +37,7 @@ public:
     }
 };
 
+// ------------------------ This question is not related to QUEUE ------------
 //https://practice.geeksforgeeks.org/problems/non-repeating-character-1587115620/1#
 //Non Repeating Character
 
@@ -80,7 +81,7 @@ public:
         for (char &c : str)
         {
             vec[c].first++;    //number of times character appears in the string
-            vec[c].second = i; // location where we encountered it first
+            vec[c].second = i; // location where we encountered it first(only characters with 1 occurance will be considered later so no need to worry)
             i++;
         }
         int ans = INT_MAX;
@@ -103,24 +104,19 @@ public:
     //Function to find the first non-repeating character in a string.
     char nonrepeatingCharacter(string str)
     {
-        //Your code here
-        vector<int> vec(256, -1);
+        vector<int> vec(26, -1);
         int i = 0;
-        for (char &c : str)
+        for (char c : str)
         {
-            if (vec[c] == -1)
-            {
-                vec[c] = i;
-            }
-            else
-            {
-                vec[c] = -2;
-            }
+            if (vec[c - 'a'] == -1)
+                vec[c - 'a'] = i;
+            else if (vec[c - 'a'] != -1)
+                vec[c - 'a'] = -2;
+
             i++;
         }
         int ans = INT_MAX;
-
-        for (int &ele : vec)
+        for (int ele : vec)
         {
             if (ele >= 0)
             {
