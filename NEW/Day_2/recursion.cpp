@@ -55,3 +55,29 @@ public:
     }
 };
 
+// 392. Is Subsequence
+
+class Solution
+{
+public:
+    bool isSubsequence(string s, string t)
+    {
+        auto i = s.begin();
+        auto j = t.begin();
+
+        auto k = s.end();
+        auto l = t.end();
+
+        while (i != k and j != l)
+        {
+            if (*i == *j)
+            {
+                i++;
+            }
+            j++;
+        }
+        if (i == k)
+            return true;
+        return false;
+    }
+};
