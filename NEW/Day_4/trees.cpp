@@ -951,3 +951,41 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 
     return head;
 }
+
+// https://practice.geeksforgeeks.org/problems/diameter-of-binary-tree/1#
+// Diameter of Binary Tree
+class Solution
+{
+public:
+    class abc
+    {
+    public:
+        int dia;
+        int ht;
+        abc(int d, int h)
+        {
+            dia = d;
+            ht = h;
+        }
+    };
+
+    abc diameter_(Node *root)
+    {
+        if (root == NULL)
+            return abc(0, 0);
+        if (root->left == NULL and root->right == NULL)
+            return abc(1, 1);
+        //left
+        abc ll = diameter_(root->left);
+        //right
+        abc rr = diameter_(root->right);
+        //including root
+        return abc(max({ll.dia, rr.dia, ll.ht + rr.ht + 1}), max(ll.ht, rr.ht) + 1);
+    }
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node *root)
+    {
+        abc ans = diameter_(root);
+        return ans.dia;
+    }
+};
