@@ -989,3 +989,107 @@ public:
         return ans.dia;
     }
 };
+
+//https://www.geeksforgeeks.org/find-the-largest-subtree-in-a-tree-that-is-also-a-bst/
+// Find the largest BST subtree in a given Binary Tree
+class Solution
+{
+public:
+    class abc
+    {
+    public:
+        int min, max, size;
+        bool is;
+        abc(int minn, int maxx, int sizee, int iss)
+        {
+            min = minn;
+            max = maxx;
+            size = sizee;
+            is = iss;
+        }
+    };
+    int max_size = INT_MIN;
+    abc solve(Node *root)
+    {
+        if (!root)
+            return abc(INT_MAX, INT_MIN, 0, 1);
+        abc ll = solve(root->left);
+        abc rr = solve(root->right);
+        if (ll.is)
+        {
+            max_size = max(max_size, ll.size);
+        }
+        if (rr.is)
+        {
+            max_size = max(max_size, rr.size);
+        }
+        if (ll.is and rr.is)
+        {
+            bool me = ll.max < root->data and rr.min > root->data;
+            if (me)
+            {
+                max_size = max(max_size, ll.size + rr.size + 1);
+                return abc(min(root->data, ll.min), max(root->data, rr.max), ll.size + rr.size + 1, 1);
+            }
+        }
+        return abc(0, 0, 0, 0);
+    }
+    int largestBst(Node *root)
+    {
+        solve(root);
+        return max_size;
+    }
+};
+
+//https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/
+//1373. Maximum Sum BST in Binary Tree
+class Solution
+{
+public:
+    class abc
+    {
+    public:
+        int min, max, sum;
+        bool is;
+        abc(int minn, int maxx, int summ, bool iss)
+        {
+            min = minn;
+            max = maxx;
+            sum = summ;
+            is = iss;
+        }
+    };
+    int max_sum = INT_MIN;
+    abc solve(TreeNode *root)
+    {
+        if (root == NULL)
+            return abc(INT_MAX, INT_MIN, 0, 1);
+        abc ll = solve(root->left);
+        abc rr = solve(root->right);
+        if (ll.is)
+        {
+            max_sum = max(max_sum, ll.sum);
+        }
+        if (rr.is)
+        {
+            max_sum = max(max_sum, rr.sum);
+        }
+        if (ll.is and rr.is)
+        {
+            bool me = ll.max < root->val and rr.min > root->val;
+            if (me)
+            {
+                max_sum = max(max_sum, ll.sum + rr.sum + root->val);
+                return abc(min(root->val, ll.min), max(root->val, rr.max), ll.sum + rr.sum + root->val, 1);
+                //because for a leaf node rr. right = Int min and ll. min = int max, this -> { min(root->val,ll.min),max(root->val,rr.max) } <- will handle such cases when node has only single or no child
+            }
+        }
+        return abc(0, 0, 0, 0);
+    }
+
+    int maxSumBST(TreeNode *root)
+    {
+        solve(root);
+        return max_sum;
+    }
+};
