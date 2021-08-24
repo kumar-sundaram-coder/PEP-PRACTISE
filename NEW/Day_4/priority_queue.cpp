@@ -27,27 +27,35 @@ public:
 
 //https://leetcode.com/problems/top-k-frequent-elements/
 //347. Top K Frequent Elements
-
 class Solution
 {
 public:
+    struct myComp
+    {
+        bool operator()(pair<int, int> &p1, pair<int, int> &p2)
+        {
+            return p1.first > p2.first; //min heap
+        }
+    };
+
     vector<int> topKFrequent(vector<int> &nums, int k)
     {
         unordered_map<int, int> mp;
         for (int ele : nums)
             mp[ele]++;
-        priority_queue<pair<int, int>> pq;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, myComp> pq;
         for (auto it : mp)
         {
             pq.push({it.second, it.first});
+            if (pq.size() > k)
+                pq.pop();
         }
         vector<int> ans;
-        while (pq.size() > 0 and k > 0)
+        while (pq.size() > 0)
         {
             pair<int, int> temp = pq.top();
             pq.pop();
             ans.push_back(temp.second);
-            k--;
         }
         return ans;
     }
@@ -88,6 +96,55 @@ public:
             pq.pop();
             ans.push_back(temp.second);
             k--;
+        }
+        return ans;
+    }
+};
+
+//https://leetcode.com/problems/kth-largest-element-in-an-array/
+//215. Kth Largest Element in an Array
+
+class Solution
+{
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (int ele : nums)
+        {
+            pq.push(ele);
+            if (pq.size() > k)
+                pq.pop();
+        }
+        return pq.top();
+    }
+};
+
+//https://leetcode.com/problems/k-closest-points-to-origin/
+//973. K Closest Points to Origin
+
+class Solution
+{
+public:
+    vector<vector<int>> kClosest(vector<vector<int>> &points, int k)
+    {
+        vector<vector<int>> ans;
+        priority_queue<pair<int, int>> pq;
+        int i = 0;
+        for (auto &v : points)
+        {
+            pq.push({v[0] * v[0] + v[1] * v[1], i});
+            if (pq.size() > k)
+            {
+                pq.pop();
+            }
+            i++;
+        }
+        while (pq.size() > 0)
+        {
+            pair<int, int> temp = pq.top();
+            pq.pop();
+            ans.push_back(points[temp.second]);
         }
         return ans;
     }

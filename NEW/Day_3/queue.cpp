@@ -4,35 +4,34 @@
 class Solution
 {
 public:
-    string FirstNonRepeating(string str)
+    string FirstNonRepeating(string A)
     {
-        string ans = "";
+        // Code here
+        vector<int> freq(26, 0);
         queue<char> q;
-        vector<int> vec(26, 0);
-        int i = 0;
-        int n = str.length();
-        for (; i < n; i++)
+        string ans = "";
+        for (char ch : A)
         {
-            q.push(str[i]);
-            vec[str[i] - 'a']++;
-
-            while (!q.empty())
+            q.push(ch);
+            freq[ch - 'a']++;
+            while (q.size() > 0)
             {
-                if (vec[q.front() - 'a'] > 1)
+                char ele = q.front();
+                if (freq[ele - 'a'] > 1)
+                {
                     q.pop();
+                }
                 else
                 {
-                    ans.push_back(q.front());
+                    ans.push_back(ele);
                     break;
                 }
             }
-
             if (q.empty())
             {
                 ans.push_back('#');
             }
         }
-
         return ans;
     }
 };
