@@ -143,3 +143,28 @@ public:
         return ans;
     }
 };
+
+//https://www.geeksforgeeks.org/find-duplicates-in-on-time-and-constant-extra-space/
+//Find duplicates in O(n) time and O(1) extra space
+
+class Solution
+{
+public:
+    vector<int> duplicates(int arr[], int n)
+    {
+        vector<int> ans;
+
+        for (int i = 0; i < n; i++)
+        {
+            arr[arr[i] % n] = arr[arr[i] % n] + n;
+        }
+        for (int i = 0; i < n; i++)
+        {
+            if (arr[i] >= 2 * n)
+            {
+                ans.push_back(i);
+            }
+        }
+        return ans.size() == 0 ? ans = {-1} : ans;
+    }
+};

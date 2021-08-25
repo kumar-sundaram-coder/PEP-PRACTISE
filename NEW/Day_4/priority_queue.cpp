@@ -63,9 +63,9 @@ public:
 
 //https://leetcode.com/problems/top-k-frequent-words/
 // 692. Top K Frequent Words
-//method-1 using max-heap
 
 //  ->{use method 2 instead of method 1 bcz in this we push all elements in pq, while in method-2 we push only K elements, this mean method-1 ->O(NlogN) while method-2 -> O(NlogK)}
+//method-1 using max-heap
 
 class Solution
 {
