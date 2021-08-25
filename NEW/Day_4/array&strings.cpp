@@ -168,3 +168,124 @@ public:
         return ans.size() == 0 ? ans = {-1} : ans;
     }
 };
+
+//https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
+//Print a given matrix in spiral form
+// C++ Program to print a matrix spirally
+
+#include <bits/stdc++.h>
+using namespace std;
+#define R 3
+#define C 6
+
+void spiralPrint(int m, int n, int a[R][C])
+{
+    int i, k = 0, l = 0;
+
+    /* k - starting row index
+		m - ending row index
+		l - starting column index
+		n - ending column index
+		i - iterator
+	*/
+
+    while (k < m && l < n)
+    {
+        /* Print the first row from
+			the remaining rows */
+        for (i = l; i < n; ++i)
+        {
+            cout << a[k][i] << " ";
+        }
+        k++;
+
+        /* Print the last column
+		from the remaining columns */
+        for (i = k; i < m; ++i)
+        {
+            cout << a[i][n - 1] << " ";
+        }
+        n--;
+
+        /* Print the last row from
+				the remaining rows */
+        if (k < m)
+        {
+            for (i = n - 1; i >= l; --i)
+            {
+                cout << a[m - 1][i] << " ";
+            }
+            m--;
+        }
+
+        /* Print the first column from
+				the remaining columns */
+        if (l < n)
+        {
+            for (i = m - 1; i >= k; --i)
+            {
+                cout << a[i][l] << " ";
+            }
+            l++;
+        }
+    }
+}
+
+/* Driver Code */
+int main()
+{
+    int a[R][C] = {{1, 2, 3, 4, 5, 6},
+                   {7, 8, 9, 10, 11, 12},
+                   {13, 14, 15, 16, 17, 18}};
+
+    // Function Call
+    spiralPrint(R, C, a);
+    return 0;
+}
+
+// This is code is contributed by rathbhupendra
+
+//https://www.geeksforgeeks.org/convert-array-into-zig-zag-fashion/
+//Convert array into Zig-Zag fashion
+// C++ program to sort an array in Zig-Zag form
+#include <iostream>
+using namespace std;
+
+// Program for zig-zag conversion of array
+void zigZag(int arr[], int n)
+{
+    // Flag true indicates relation "<" is expected,
+    // else ">" is expected. The first expected relation
+    // is "<"
+    bool flag = true;
+
+    for (int i = 0; i <= n - 2; i++)
+    {
+        if (flag) /* "<" relation expected */
+        {
+            /* If we have a situation like A > B > C,
+			we get A > B < C by swapping B and C */
+            if (arr[i] > arr[i + 1])
+                swap(arr[i], arr[i + 1]);
+        }
+        else /* ">" relation expected */
+        {
+            /* If we have a situation like A < B < C,
+			we get A < C > B by swapping B and C */
+            if (arr[i] < arr[i + 1])
+                swap(arr[i], arr[i + 1]);
+        }
+        flag = !flag; /* flip flag */
+    }
+}
+
+// Driver program
+int main()
+{
+    int arr[] = {4, 3, 7, 8, 6, 2, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    zigZag(arr, n);
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    return 0;
+}
